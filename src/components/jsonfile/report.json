@@ -1,0 +1,34 @@
+{
+  "report_data": [
+    {
+      "problem": "System Error",
+      "detalis": "System Crash",
+      "comment": "System low"
+    },
+    {
+      "problem": "Payment Error",
+      "detalis": "Qr code error",
+      "comment": "Payment low"
+    },
+    {
+      "problem": "Inappropriate Game",
+      "detalis": "Name game Inappropriate",
+      "comment": "Inappropriate low"
+    },
+    {
+      "problem": "Unable to access account",
+      "detalis": "Unable to change Password",
+      "comment": "account low"
+    },
+    {
+      "problem": "System Error",
+      "detalis": "System cannot login",
+      "comment": "cannot login low"
+    },
+    {
+      "problem": "Payment Error",
+      "detalis": "Payment error",
+      "comment": "Payment low"
+    }
+  ]
+}

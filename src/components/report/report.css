@@ -1,0 +1,103 @@
+.body_report {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 80vh;
+  padding: 0 20px;
+}
+
+.container-report {
+  gap: 20px;
+  background-color: #fff;
+  width: 700px;
+  max-width: 920px;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+
+  /*box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);*/
+}
+
+.form-control-report {
+  position: relative;
+  margin-bottom: 15px;
+}
+
+.form-control_label-report {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.form-control input,
+.form-control textarea {
+  width: 100%;
+  padding: 10px;
+  padding-right: 40px;
+  border: 2px solid #ddd;
+  border-radius: 10px;
+  outline: none;
+}
+
+.modal-content-report {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  width: 80%;
+  border: 1px solid #888;
+  max-width: 500px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.close-button-report {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.fix_font-report {
+  height: 5vh;
+  text-align: center;
+}
+
+.modal-report {
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: fixed;
+}
+
+/*9/2/24*/
+.modalContainer-report {
+  width: 400px;
+  height: 150px;
+  border-radius: 15px;
+  background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  display: flex;
+  flex-direction: column;
+  padding: 25px;
+
+  align-items: center;
+  justify-content: center;
+  height: 20vh;
+}
+
+/*9/2/24*/
+
+.fix_position-report {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 30vh;
+}
+
+/*16/2/67*/
+.button-report {
+  width: 100%;
+}

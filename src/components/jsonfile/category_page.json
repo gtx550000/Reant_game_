@@ -1,0 +1,39 @@
+{
+  "Category": [
+    {
+      "name": "Action",
+      "color": "linear-gradient(-12deg, #FF0000 0%, #C70909 75%)",
+      "image": "https://favim.com/orig/201103/04/Favim.com-4518.jpg"
+    },
+    {
+      "name": "Horror",
+      "color": "linear-gradient(-12deg, #111111 0%, #262626 75%)",
+      "image": "https://as2.ftcdn.net/v2/jpg/02/21/80/51/1000_F_221805131_XI0t2FuD9UgIaO9xOhoQv7aqKOvDOEel.jpg"
+    },
+    {
+      "name": "RPG",
+      "color": "linear-gradient(-12deg, #2200FD 0%, #1C099A 75%)",
+      "image": "https://cdn.outsideonline.com/wp-content/uploads/2023/11/Japan_JNTO_h.jpg"
+    },
+    {
+      "name": "Racing",
+      "color": "linear-gradient(-12deg, #2200FD 0%, #1C099A 75%)",
+      "image": "https://s100.iracing.com/wp-content/uploads/2023/11/copy.jpg"
+    },
+    {
+      "name": "Cooking",
+      "color": "linear-gradient(-12deg, #111111 0%, #262626 75%)",
+      "image": "https://i.ytimg.com/vi/SRRKBENArSg/hqdefault.jpg"
+    },
+    {
+      "name": "Story",
+      "color": "linear-gradient(-12deg, #FF7001 0%, #D7630B 75%)",
+      "image": "https://i.pinimg.com/736x/1a/72/90/1a72904bbf73293436faa1f11468bd0b.jpg"
+    },
+    {
+      "name": "Adventure",
+      "color": "linear-gradient(-12deg, #C707C1 0%, #9A0895 75%)",
+      "image": "https://as1.ftcdn.net/v2/jpg/05/35/48/04/1000_F_535480400_R8ai44JbyhStfFi1eCpMri2oBybW3HEo.jpg"
+    }
+  ]
+}

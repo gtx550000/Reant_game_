@@ -1,0 +1,77 @@
+.paddingall-library {
+  padding: 10px 10px 10px 10px;
+}
+
+.pricetitle-library {
+  font-weight: 600;
+}
+
+.pricesubtitle-library {
+  font-size: 14px;
+}
+
+.iconstyle-library {
+  margin-top: 20px;
+  margin-left: 20px;
+}
+
+.greadient1-library {
+  background: #b7c3cd;
+  background: linear-gradient(
+    158deg,
+    rgb(165, 165, 247) 0%,
+    rgb(51, 86, 192) 100%
+  );
+}
+
+.greadient2-library {
+  background: #b7c3cd;
+  background: linear-gradient(
+    158deg,
+    rgb(238, 208, 144) 0%,
+    rgb(253, 164, 48) 100%
+  );
+}
+
+.greadient3-library {
+  background: #b7c3cd;
+  background: linear-gradient(
+    158deg,
+    rgb(129, 233, 181) 0%,
+    rgb(27, 123, 201) 100%
+  );
+}
+
+.greadient4-library {
+  background: #b7c3cd;
+  background: linear-gradient(
+    158deg,
+    rgb(247, 156, 129) 0%,
+    rgb(214, 44, 38) 100%
+  );
+}
+
+.greadient5-library {
+  background: #b7c3cd;
+  background: linear-gradient(
+    158deg,
+    rgb(243, 239, 237) 0%,
+    rgba(57, 228, 240, 0.027) 100%
+  );
+}
+
+.btn-library {
+  background: #b7c3cd;
+  background: linear-gradient(
+    158deg,
+    rgb(245, 244, 244) 0%,
+    rgb(117, 121, 119) 100%
+  );
+}
+.fonta {
+  font-size: 40px;
+  position: absolute;
+  bottom: 15px;
+  left: 850px;
+  top: 15px;
+}

@@ -1,0 +1,10 @@
+{
+  "bank": [
+    { "name": "Bangkok bank", "img": "bank bank-bbl" },
+    { "name": "K bank", "img": "bank bank-kbank" },
+    { "name": "Krung Thai bank", "img": "bank bank-ktb" },
+    { "name": "Ayudhya bank", "img": "bank bank-bay" },
+    { "name": "Siam Commercial bank", "img": "bank bank-scb" },
+    { "name": "Savings bank", "img": "bank bank-gsb" }
+  ]
+}

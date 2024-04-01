@@ -1,0 +1,53 @@
+.img-libraryss {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.img-libraryss:hover {
+  cursor: pointer;
+  filter: blur(5px);
+  transition: filter 0.3s ease-in-out;
+}
+.container-libraryss {
+  margin-left: 5rem;
+}
+.cardContainer-libraryss {
+  position: relative;
+  max-width: 200px;
+  height: 200px; /* Increase the height */
+  overflow: hidden;
+}
+
+.cardImage-libraryss {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: filter 0.3s ease-in-out;
+}
+
+.cardText-libraryss {
+  position: absolute;
+  top: 80%;
+  left: 30%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  z-index: 1;
+  color: whitesmoke;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+.cardContainer-libraryss {
+  position: relative;
+  max-width: 400px;
+  height: 200px;
+  overflow: hidden;
+
+  margin-right: 5px; /* Adjust this value to reduce the horizontal space between images */
+  margin-bottom: 5px; /* Adjust this value to reduce the vertical space between images */
+}
+@media screen and (max-width: 720px) {
+  .container-libraryss {
+    margin-left: 4rem;
+  }
+}

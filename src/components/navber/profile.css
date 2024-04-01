@@ -1,0 +1,25 @@
+.profiles {
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  padding: 0;
+  margin: 0;
+  transition: 0.1s;
+  box-shadow:
+    rgba(0, 0, 0, 0.3) 0px 19px 38px,
+    rgba(0, 0, 0, 0.22) 0px 15px 12px;
+}
+.profiles:hover {
+  transform: scale(1.3);
+  box-shadow:
+    rgba(255, 255, 255, 0.5) 0px 1px 1px 0px inset,
+    rgba(50, 50, 93, 0.75) 0px 50px 100px -20px,
+    rgba(0, 0, 0, 1) 0px 30px 60px -30px;
+}
+.p-profiles {
+  margin: auto;
+  padding: 10%;
+  color: whitesmoke;
+  margin: 0;
+  font-family: cursive;
+}

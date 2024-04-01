@@ -1,0 +1,46 @@
+{
+  "games_data_adjusted": [
+    {
+      "name": "METAL GEAR SOLID V",
+      "Name team": "KONAMI",
+      "price": "1800",
+      "category": "Action",
+      "release": "Aug 31 2020"
+    },
+    {
+      "name": "Red Dead Redemption 2",
+      "Name team": "Rockstar Games",
+      "price": "1900",
+      "category": "Action",
+      "release": "Dec 6 2019"
+    },
+    {
+      "name": "Ghost Recon® Breakpoint",
+      "Name team": "Ubisoft",
+      "price": "1600",
+      "category": "FPS",
+      "release": "Sep 26 2023"
+    },
+    {
+      "name": "HELLDIVERS™ 1",
+      "Name team": "Arrowhead Game Studios",
+      "price": "1290",
+      "category": "FPS",
+      "release": "Mar 12 2024"
+    },
+    {
+      "name": "Train Valley 2",
+      "Name team": "Alexey Davydov",
+      "price": "360",
+      "category": "PUZZLE",
+      "release": "Mar 13 2019"
+    },
+    {
+      "name": "STAR WARS™: Battlefront Classic Collection",
+      "Name team": "Aspyr",
+      "price": "600",
+      "category": "FPS",
+      "release": "Aug 28 2024"
+    }
+  ]
+}

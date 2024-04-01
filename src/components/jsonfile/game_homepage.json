@@ -1,0 +1,34 @@
+{
+  "Game_homepage": [
+    {
+      "image": "https://img.itch.zone/aW1nLzEyMjE0NDEwLnBuZw==/original/suTJc3.png",
+      "name": "deppart",
+      "description": "Deppart is an indie first-person horror game with shooter elements.Be very careful, enemies kill you with one hit."
+    },
+    {
+      "image": "https://img.itch.zone/aW1nLzE0Njg1OTc0LnBuZw==/original/RHQMWy.png",
+      "name": "The Forest Ranger",
+      "description": "FRS is a new horror game series about the investigation of missing hikers in the U.S. National Parks. "
+    },
+    {
+      "image": "https://img.itch.zone/aW1hZ2UvMTgzMTAxLzQ1MjIwMTEuZ2lm/347x500/yMb8nJ.gif",
+      "name": "First Cut",
+      "description": "A small fighting game started in 2017.Face off against a friend or fight the computer.This game can be played with a gamepad, a mouse and keyboard."
+    },
+    {
+      "image": "https://i.pinimg.com/originals/ca/16/e4/ca16e420cc9d7830dcd6d12cad205d77.gif",
+      "name": "Mario Classic",
+      "description": "When playing, the player is assuming the role of Mario and has to go through the Mushroom Kingdom. The player has to survive the evil forces."
+    },
+    {
+      "image": "https://img.itch.zone/aW1nLzEzOTY4MTQ0LmdpZg==/original/Mbu7D7.gif",
+      "name": "Station37",
+      "description": "This game is about fighting fires and rescuing people.Grab your axe, fire extinguisher, helmet, and run into the inferno!"
+    },
+    {
+      "image": "https://img.itch.zone/aW1nLzE0NjU1NTI5LmdpZg==/original/hm7PcK.gif",
+      "name": "Castle104i",
+      "description": "Adventure through the castle and its outer reaches as you see fit - secret treasures and skulking beasts hide around every corner!"
+    }
+  ]
+}
