@@ -20,8 +20,17 @@ import AlignHorizontalLeftIcon from "@mui/icons-material/AlignHorizontalLeft";
 /*2/3/24 */
 import Collapse from "@mui/material/Collapse";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
-/*13/321 */
+/*13/3/24 */
 import PaymentIcon from "@mui/icons-material/Payment";
+/*1/4/24*/
+import LocationSearchingIcon from "@mui/icons-material/LocationSearching";
+import SportsKabaddiIcon from "@mui/icons-material/SportsKabaddi";
+import SentimentDissatisfiedIcon from "@mui/icons-material/SentimentDissatisfied";
+import GroupAddIcon from "@mui/icons-material/GroupAdd";
+import DirectionsCarFilledIcon from "@mui/icons-material/DirectionsCarFilled";
+import SoupKitchenIcon from "@mui/icons-material/SoupKitchen";
+import BookIcon from "@mui/icons-material/Book";
+import SportsMartialArtsIcon from "@mui/icons-material/SportsMartialArts";
 
 export default function TemporaryDrawer({ state, setState, toggleDrawer }) {
   const [isCollapse, setisCollapse] = React.useState(false);
@@ -154,6 +163,97 @@ export default function TemporaryDrawer({ state, setState, toggleDrawer }) {
                 <ListItemButton href={`/${text.toLowerCase()}`}>
                   <ListItemIcon>
                     <LogoutIcon sx={{ color: "#fff" }} />
+                  </ListItemIcon>
+                  <ListItemText primary={text} />
+                </ListItemButton>
+              </ListItem>
+            ))}
+          </List>
+
+          <List>
+            {["Action"].map((text) => (
+              <ListItem key={text} disablePadding>
+                <ListItemButton href={`/${text.toLowerCase()}`}>
+                  <ListItemIcon>
+                    <SportsKabaddiIcon sx={{ color: "#fff" }} />
+                  </ListItemIcon>
+                  <ListItemText primary={text} />
+                </ListItemButton>
+              </ListItem>
+            ))}
+          </List>
+
+          <List>
+            {["Horror"].map((text) => (
+              <ListItem key={text} disablePadding>
+                <ListItemButton href={`/${text.toLowerCase()}`}>
+                  <ListItemIcon>
+                    <SentimentDissatisfiedIcon sx={{ color: "#fff" }} />
+                  </ListItemIcon>
+                  <ListItemText primary={text} />
+                </ListItemButton>
+              </ListItem>
+            ))}
+          </List>
+
+          <List>
+            {["RPG"].map((text) => (
+              <ListItem key={text} disablePadding>
+                <ListItemButton href={`/${text.toLowerCase()}`}>
+                  <ListItemIcon>
+                    <GroupAddIcon sx={{ color: "#fff" }} />
+                  </ListItemIcon>
+                  <ListItemText primary={text} />
+                </ListItemButton>
+              </ListItem>
+            ))}
+          </List>
+
+          <List>
+            {["Racing"].map((text) => (
+              <ListItem key={text} disablePadding>
+                <ListItemButton href={`/${text.toLowerCase()}`}>
+                  <ListItemIcon>
+                    <DirectionsCarFilledIcon sx={{ color: "#fff" }} />
+                  </ListItemIcon>
+                  <ListItemText primary={text} />
+                </ListItemButton>
+              </ListItem>
+            ))}
+          </List>
+
+          <List>
+            {["Cooking"].map((text) => (
+              <ListItem key={text} disablePadding>
+                <ListItemButton href={`/${text.toLowerCase()}`}>
+                  <ListItemIcon>
+                    <SoupKitchenIcon sx={{ color: "#fff" }} />
+                  </ListItemIcon>
+                  <ListItemText primary={text} />
+                </ListItemButton>
+              </ListItem>
+            ))}
+          </List>
+
+          <List>
+            {["Story"].map((text) => (
+              <ListItem key={text} disablePadding>
+                <ListItemButton href={`/${text.toLowerCase()}`}>
+                  <ListItemIcon>
+                    <BookIcon sx={{ color: "#fff" }} />
+                  </ListItemIcon>
+                  <ListItemText primary={text} />
+                </ListItemButton>
+              </ListItem>
+            ))}
+          </List>
+
+          <List>
+            {["Adventure"].map((text) => (
+              <ListItem key={text} disablePadding>
+                <ListItemButton href={`/${text.toLowerCase()}`}>
+                  <ListItemIcon>
+                    <SportsMartialArtsIcon sx={{ color: "#fff" }} />
                   </ListItemIcon>
                   <ListItemText primary={text} />
                 </ListItemButton>
