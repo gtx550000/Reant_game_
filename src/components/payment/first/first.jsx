@@ -21,8 +21,7 @@ const CartForm = () => {
       id: 1,
       name: "Game 1",
       price: 50,
-      image:
-        "https://img.cdnx.in/310897/1689067951822_SKU-0009_0.jpeg?width=600",
+      image: "https://inwfile.com/s-da/avqv6z.jpg",
     },
     { id: 2, name: "Game 2", price: 40, image: "game2.jpg" },
     { id: 3, name: "Game 3", price: 60, image: "game3.jpg" },
