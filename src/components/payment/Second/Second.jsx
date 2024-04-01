@@ -42,8 +42,14 @@ export default function IntroDivider() {
   });
 
   return (
-    <div style={{ textAlign: "center" }}>
-      <Card sx={{ maxWidth: 300 }}>
+    <div
+      style={{
+        padding: "30px 0px 30px 50px",
+        display: "flex",
+        justifyContent: "center",
+      }}
+    >
+      <Card sx={{ maxWidth: 350 }}>
         <CardContent style={{ padding: "20px", textAlign: "center" }}>
           <CardContent>
             <i
