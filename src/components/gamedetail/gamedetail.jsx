@@ -32,7 +32,7 @@ function Gamedetail() {
         setCart(isGameInCart);
       } catch (err) {
         console.log(err);
-        navigate("/login");
+        /*navigate("/login");*/
       }
       try {
         const response = await Instance.post("/bill/all");

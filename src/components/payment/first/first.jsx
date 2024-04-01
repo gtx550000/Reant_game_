@@ -87,7 +87,7 @@ const CartForm = () => {
   return (
     <div
       style={{
-        padding: "30px 0px 0px 20px",
+        padding: "30px 0px 0px 10px",
       }}
     >
       <Grid container spacing={3} direction="row">

@@ -12,6 +12,8 @@ import PropTypes from "prop-types";
 import { useData, DataProvider } from "../contextprovider/provider";
 import { useEffect } from "react";
 
+import Game from "../gamedetail/gamedetail";
+
 let items = data["Game_homepage"];
 let category_item = datas["Category"];
 
@@ -20,7 +22,7 @@ const Hero = () => {
   const { userId } = useData(DataProvider);
 
   const category = (event, links) =>
-    navigate("/categories", { replace: true, state: { links } });
+    navigate(`/categories/${links}`, { replace: true, state: { links } });
   useEffect(() => {
     const Fetchdata = async () => {
       console.log(userId);
@@ -31,7 +33,7 @@ const Hero = () => {
     <div>
       <body>
         <div className="bigimage-container">
-          <img className="bigimage" src={items[0].image} />
+          <Game></Game>
         </div>
 
         <div className="album py-5 bg-body-tertiary">

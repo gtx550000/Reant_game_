@@ -31,6 +31,7 @@ import DirectionsCarFilledIcon from "@mui/icons-material/DirectionsCarFilled";
 import SoupKitchenIcon from "@mui/icons-material/SoupKitchen";
 import BookIcon from "@mui/icons-material/Book";
 import SportsMartialArtsIcon from "@mui/icons-material/SportsMartialArts";
+import Typography from "@mui/material/Typography";
 
 export default function TemporaryDrawer({ state, setState, toggleDrawer }) {
   const [isCollapse, setisCollapse] = React.useState(false);
@@ -150,7 +151,14 @@ export default function TemporaryDrawer({ state, setState, toggleDrawer }) {
                 justifyContent: "center",
               }}
             >
-              <MailIcon />
+              <MailIcon sx={{ color: "#9FA9B2 " }} />
+              <Typography
+                variant="h8"
+                gutterBottom
+                sx={{ color: "#F3F8FC  ", marginLeft: "1rem" }}
+              >
+                Categories
+              </Typography>
             </ListItemIcon>
 
             <ListItemText primary="All Game" sx={{ opacity: open ? 1 : 0 }} />
@@ -158,22 +166,9 @@ export default function TemporaryDrawer({ state, setState, toggleDrawer }) {
         </ListItem>
         <Collapse in={isCollapse} timeout="auto" unmountOnExit>
           <List>
-            {["Logout"].map((text) => (
-              <ListItem key={text} disablePadding>
-                <ListItemButton href={`/${text.toLowerCase()}`}>
-                  <ListItemIcon>
-                    <LogoutIcon sx={{ color: "#fff" }} />
-                  </ListItemIcon>
-                  <ListItemText primary={text} />
-                </ListItemButton>
-              </ListItem>
-            ))}
-          </List>
-
-          <List>
             {["Action"].map((text) => (
               <ListItem key={text} disablePadding>
-                <ListItemButton href={`/${text.toLowerCase()}`}>
+                <ListItemButton href={`/categories/${text.toLowerCase()}`}>
                   <ListItemIcon>
                     <SportsKabaddiIcon sx={{ color: "#fff" }} />
                   </ListItemIcon>
@@ -186,7 +181,7 @@ export default function TemporaryDrawer({ state, setState, toggleDrawer }) {
           <List>
             {["Horror"].map((text) => (
               <ListItem key={text} disablePadding>
-                <ListItemButton href={`/${text.toLowerCase()}`}>
+                <ListItemButton href={`/categories/${text.toLowerCase()}`}>
                   <ListItemIcon>
                     <SentimentDissatisfiedIcon sx={{ color: "#fff" }} />
                   </ListItemIcon>
@@ -199,7 +194,7 @@ export default function TemporaryDrawer({ state, setState, toggleDrawer }) {
           <List>
             {["RPG"].map((text) => (
               <ListItem key={text} disablePadding>
-                <ListItemButton href={`/${text.toLowerCase()}`}>
+                <ListItemButton href={`/categories/${text.toLowerCase()}`}>
                   <ListItemIcon>
                     <GroupAddIcon sx={{ color: "#fff" }} />
                   </ListItemIcon>
@@ -212,7 +207,7 @@ export default function TemporaryDrawer({ state, setState, toggleDrawer }) {
           <List>
             {["Racing"].map((text) => (
               <ListItem key={text} disablePadding>
-                <ListItemButton href={`/${text.toLowerCase()}`}>
+                <ListItemButton href={`/categories/${text.toLowerCase()}`}>
                   <ListItemIcon>
                     <DirectionsCarFilledIcon sx={{ color: "#fff" }} />
                   </ListItemIcon>
@@ -225,7 +220,7 @@ export default function TemporaryDrawer({ state, setState, toggleDrawer }) {
           <List>
             {["Cooking"].map((text) => (
               <ListItem key={text} disablePadding>
-                <ListItemButton href={`/${text.toLowerCase()}`}>
+                <ListItemButton href={`/categories/${text.toLowerCase()}`}>
                   <ListItemIcon>
                     <SoupKitchenIcon sx={{ color: "#fff" }} />
                   </ListItemIcon>
@@ -238,7 +233,7 @@ export default function TemporaryDrawer({ state, setState, toggleDrawer }) {
           <List>
             {["Story"].map((text) => (
               <ListItem key={text} disablePadding>
-                <ListItemButton href={`/${text.toLowerCase()}`}>
+                <ListItemButton href={`/categories/${text.toLowerCase()}`}>
                   <ListItemIcon>
                     <BookIcon sx={{ color: "#fff" }} />
                   </ListItemIcon>
@@ -251,7 +246,7 @@ export default function TemporaryDrawer({ state, setState, toggleDrawer }) {
           <List>
             {["Adventure"].map((text) => (
               <ListItem key={text} disablePadding>
-                <ListItemButton href={`/${text.toLowerCase()}`}>
+                <ListItemButton href={`/categories/${text.toLowerCase()}`}>
                   <ListItemIcon>
                     <SportsMartialArtsIcon sx={{ color: "#fff" }} />
                   </ListItemIcon>

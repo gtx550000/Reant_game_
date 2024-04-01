@@ -19,6 +19,9 @@ import Card_library from "../card/card-library";
 
 import Instance from "../../axios_main";
 
+/*1/4/24 */ import data from "../jsonfile/game_homepage.json";
+const datas = data["Game_homepage"];
+
 export default function Library() {
   const [select, setSelect] = useState("fav");
   const [favourite, setFavourite] = useState([]);
@@ -101,14 +104,23 @@ export default function Library() {
       <Box
         className="container-library"
         sx={{
+          display: "flex",
+          padding: "30px 0px 30px 50px",
+          justifyContent: "center",
+          "@media (max-width: 999px)": {
+            // Target screens less than 1000px
+            flexDirection: "column", // Stack cards vertically on small screens
+            alignItems: "center", // Center cards horizontally
+            padding: "20px", // Adjust padding for smaller layouts
+          },
           "@media (min-width: 1000px)": {
-            display: "flex",
-            justifyContent: "center",
+            // Add styles for larger screens (optional)
+            // ... your existing styles here
           },
         }}
       >
         <Box className="kanit-thin" height={30}>
-          <Box sx={{ display: "flex" }}>
+          <Box>
             <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
               <Grid container spacing={1}>
                 <Grid xs={12}>
@@ -210,44 +222,57 @@ export default function Library() {
       <Box>
         <Stack
           direction="row"
-          spacing={2}
+          spacing={-5}
           sx={{
             marginTop: "2rem",
             justifyContent: "center",
           }}
         >
-          <Button
-            color="error"
-            variant={select === "fav" ? "contained" : "outlined"}
-            onClick={() => handleChangeButton("fav")}
+          <div
+            style={{
+              padding: "150px 0px 30px 50px",
+            }}
           >
-            <FavoriteIcon />
-            <Typography sx={{ marginLeft: "0.5rem" }}>Favorite</Typography>
-          </Button>
-          <Button
-            color="error"
-            variant={select === "game" ? "contained" : "outlined"}
-            onClick={() => handleChangeButton("game")}
+            <Button
+              color="error"
+              variant={select === "fav" ? "contained" : "outlined"}
+              onClick={() => handleChangeButton("fav")}
+            >
+              <FavoriteIcon />
+              <Typography>Favorite</Typography>
+            </Button>
+          </div>
+
+          <div
+            style={{
+              padding: "150px 0px 30px 50px",
+            }}
           >
-            <VideogameAssetIcon />
-            <Typography sx={{ marginLeft: "0.5rem" }}>Game</Typography>
-          </Button>
+            <Button
+              color="error"
+              variant={select === "game" ? "contained" : "outlined"}
+              onClick={() => handleChangeButton("game")}
+            >
+              <VideogameAssetIcon />
+              <Typography sx={{ marginLeft: "0.5rem" }}>Game</Typography>
+            </Button>
+          </div>
         </Stack>
       </Box>
-      <Box
-        sx={{
-          maxWidth: "800px",
-          width: "100%",
-          display: "flex",
-          justifyContent: "center",
-          marginTop: "2rem",
-          "@media (min-width: 1100px)": {
-            marginLeft: "18rem",
-          },
-        }}
-      >
-        <Card_library items={items} />
-      </Box>
+      <div style={{ textAlign: "center", padding: "30px 0px 0px 50px" }}>
+        <Box
+          sx={{
+            maxWidth: "800px",
+            width: "100%",
+            margin: "0 auto", // Center horizontally
+            "@media (min-width: 1100px)": {
+              marginLeft: "30rem",
+            },
+          }}
+        >
+          <Card_library items={datas} />
+        </Box>
+      </div>
     </Box>
   );
 }

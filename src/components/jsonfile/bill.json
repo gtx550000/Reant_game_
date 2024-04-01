@@ -1,0 +1,52 @@
+{
+  "bill": [
+    {
+      "id": 1,
+      "price": 50.99,
+      "time": "2024-04-01T12:30:00.000Z",
+      "Order": null,
+      "orderId": null
+    },
+    {
+      "id": 2,
+      "price": 99.5,
+      "time": "2024-03-31T14:45:00.000Z",
+      "Order": {
+        "id": 1,
+        "user": {
+          "id": 1,
+          "name": "John Doe",
+          "username": "johndoe",
+          "password": "password123",
+          "tel": "1234567890",
+          "email": "johndoe@example.com",
+          "profile": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+          "role": "USER",
+          "Game": [],
+          "Cart": [],
+          "Order": [],
+          "Favorite": [],
+          "Report": [],
+          "Tokenemail": []
+        },
+        "totalPrice": 299.99,
+        "status": "DELIVERED",
+        "items": [
+          {
+            "id": 1,
+            "name": "The Witcher 3: Wild Hunt",
+            "price": 29.99,
+            "quantity": 1
+          },
+          {
+            "id": 2,
+            "name": "Grand Theft Auto V",
+            "price": 39.99,
+            "quantity": 1
+          }
+        ]
+      },
+      "orderId": 1
+    }
+  ]
+}

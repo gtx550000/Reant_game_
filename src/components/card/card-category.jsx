@@ -6,7 +6,8 @@ function Card_category(props) {
   const items = props.items;
   const navigates = useNavigate();
   const categorys = (event, links) =>
-    navigates("/categories", { replace: true, state: { links } });
+    navigates(`/categories/${links}`, { replace: true, state: { links } });
+
   return (
     <div className="gameListContainer">
       {items.map((item, i) => (

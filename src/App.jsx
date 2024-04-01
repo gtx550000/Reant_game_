@@ -19,6 +19,8 @@ import { DataRegProvider } from "./components/contextprovider/register_provider"
 /*14/3/24 */ import Admain from "./components/admain/admain";
 import Admain1 from "./components/admain/admain1";
 
+/*1/4/24 */ import Bill from "./components/bill/bill ";
+
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
@@ -38,7 +40,10 @@ function App() {
               <Route path="/register" element={<Register />}></Route>
               <Route path="/report" element={<Report />}></Route>
               <Route path="/login" element={<Login />}></Route>
-              <Route path="/categories" element={<Categories />}></Route>
+              <Route
+                path="/categories/:category"
+                element={<Categories />}
+              ></Route>
               <Route path="/cart" element={<Cart />}></Route>
               <Route
                 path="/forgot_password"
@@ -52,6 +57,7 @@ function App() {
               <Route path="/payment" element={<Payment />}></Route>
               <Route path="/admain" element={<Admain />}></Route>
               <Route path="/admain1" element={<Admain1 />}></Route>
+              <Route path="/bill" element={<Bill />}></Route>
             </Routes>
           </div>
         </DataRegProvider>
