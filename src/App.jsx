@@ -21,6 +21,8 @@ import Admain1 from "./components/admain/admain1";
 
 /*1/4/24 */ import Bill from "./components/bill/bill ";
 
+/*2/4/24 */ import Slidshowhome from "./components/slideshowhome/slideshowhome";
+
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
@@ -58,6 +60,7 @@ function App() {
               <Route path="/admain" element={<Admain />}></Route>
               <Route path="/admain1" element={<Admain1 />}></Route>
               <Route path="/bill" element={<Bill />}></Route>
+              <Route path="/slidshowhome" element={<Slidshowhome />}></Route>
             </Routes>
           </div>
         </DataRegProvider>

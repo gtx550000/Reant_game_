@@ -12,7 +12,7 @@ import PropTypes from "prop-types";
 import { useData, DataProvider } from "../contextprovider/provider";
 import { useEffect } from "react";
 
-import Game from "../gamedetail/gamedetail";
+import Gamehome from "../slideshowhome/slideshowhome";
 
 let items = data["Game_homepage"];
 let category_item = datas["Category"];
@@ -32,8 +32,8 @@ const Hero = () => {
   return (
     <div>
       <body>
-        <div className="bigimage-container">
-          <Game></Game>
+        <div /**/ className="bigimage-container1">
+          <Gamehome></Gamehome>
         </div>
 
         <div className="album py-5 bg-body-tertiary">
@@ -111,7 +111,7 @@ const Hero = () => {
           </div>
         </div>
 
-        <footer className="text-body-secondary py-5">
+        <footer className="text-body-secondary py-5 bigimage-container2">
           <div className="container">
             <p className="float-end mb-1">
               <a href="#">Back to top</a>
@@ -123,11 +123,11 @@ const Hero = () => {
             <p className="mb-0">
               {" "}
               Register game :
-              <a href="/register" className="font-coloer-home ">
+              <a href="/register" className="font-coloer-home1 ">
                 Register page
               </a>
               ,Suport User : Contact Admin -
-              <a href="/report" className="font-coloer-home ">
+              <a href="/report" className="font-coloer-home1 ">
                 {" "}
                 Report Problem{" "}
               </a>
