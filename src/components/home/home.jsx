@@ -1,6 +1,6 @@
 import "react-toastify/dist/ReactToastify.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import data from "../jsonfile/game_homepage";
+import data from "../jsonfile/game_homepage.json";
 import datas from "../jsonfile/category_page.json";
 
 import "../text/a-box.css";
@@ -10,28 +10,38 @@ import Card_show from "../card/card-show";
 import Card_category from "../card/card-category";
 import PropTypes from "prop-types";
 import { useData, DataProvider } from "../contextprovider/provider";
-import { useEffect } from "react";
-
+import { useEffect, useState } from "react";
+import Instance from "../../axios_main";
+import Slide_show from "../slideshowgamedetail/slideshowgamedetail";
 let items = data["Game_homepage"];
 let category_item = datas["Category"];
 
 const Hero = () => {
   const navigate = useNavigate();
   const { userId } = useData(DataProvider);
-
+  const [item, setItem] = useState(items);
+  const [item2, setItem2] = useState(items);
   const category = (event, links) =>
-    navigate("/categories", { replace: true, state: { links } });
+    navigate(`/categories/${links}`, { replace: true, state: { links } });
   useEffect(() => {
     const Fetchdata = async () => {
-      console.log(userId);
+      const response = await Instance.get("/games");
+      let data = response.data;
+      setItem(data);
+      const newData = data.map((item) => {
+        const image = item.image.split(" ");
+        return image[0];
+      });
+      setItem2(newData);
     };
     Fetchdata();
   }, []);
+
   return (
     <div>
       <body>
-        <div className="bigimage-container">
-          <img className="bigimage" src={items[0].image} />
+        <div /**/ className="bigimage-container1">
+          <Slide_show height="50px" width="10px" h="10px" items={item2} />
         </div>
 
         <div className="album py-5 bg-body-tertiary">
@@ -105,11 +115,11 @@ const Hero = () => {
             </h2>
           </div>
           <div className="container">
-            <Card_show items={items} />
+            <Card_show items={item} />
           </div>
         </div>
 
-        <footer className="text-body-secondary py-5">
+        <footer className="text-body-secondary py-5 bigimage-container2">
           <div className="container">
             <p className="float-end mb-1">
               <a href="#">Back to top</a>
@@ -121,11 +131,11 @@ const Hero = () => {
             <p className="mb-0">
               {" "}
               Register game :
-              <a href="/register" className="font-coloer-home ">
+              <a href="/register" className="font-coloer-home1 ">
                 Register page
               </a>
               ,Suport User : Contact Admin -
-              <a href="/report" className="font-coloer-home ">
+              <a href="/report" className="font-coloer-home1 ">
                 {" "}
                 Report Problem{" "}
               </a>

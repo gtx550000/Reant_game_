@@ -5,7 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 import "../profile/style.css";
 
 import "bootstrap/dist/css/bootstrap.min.css";
-import Instance from "../../axios_main";
+import Instance, { refreshPage } from "../../axios_main";
 
 export default function Profile() {
   const notify = () =>
@@ -104,6 +104,7 @@ export default function Profile() {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        refreshPage();
         const response = await Instance.get("/user/");
         const response_profile = await Instance.get("/user/profileUser", {
           responseType: "arraybuffer",

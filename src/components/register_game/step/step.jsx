@@ -8,16 +8,29 @@ import Typography from "@mui/material/Typography";
 import First from "../first/first";
 
 import Third from "../third/third";
-
-import { ToastContainer, toast } from "react-toastify";
+import Instance, { refreshPage } from "../../../axios_main";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import { useNavigate } from "react-router";
+import {
+  useDataReg,
+  DataRegContext,
+} from "../../contextprovider/register_provider";
 const steps = ["Select campaign settings", "Arrangement"];
 
 export default function HorizontalNonLinearStepper() {
   const [activeStep, setActiveStep] = React.useState(0);
   const [completed, setCompleted] = React.useState({});
-
+  const navigate = useNavigate();
+  const {
+    namegame,
+    videourl,
+    category,
+    price,
+    releaseDate,
+    imageurl,
+    description,
+  } = useDataReg(DataRegContext);
   const totalSteps = () => {
     return steps.length;
   };
@@ -53,12 +66,30 @@ export default function HorizontalNonLinearStepper() {
     setActiveStep(step);
   };
 
-  const handleComplete = () => {
-    const newCompleted = completed;
-    newCompleted[activeStep] = true;
-    setCompleted(newCompleted);
-    handleNext();
-    toast.success("🦄 Nice bro!");
+  const handleComplete = async () => {
+    refreshPage();
+    const releaseDateAsDate = new Date(releaseDate);
+
+    const requestData = {
+      name: namegame,
+      release: releaseDateAsDate, // Example release date
+      price: price, // Example price
+      video: videourl, // Example video URL
+      image: imageurl.join(" "), // Example image URL
+      description: description,
+      category: category, // Example category
+    };
+
+    try {
+      const response = await Instance.post("/games/", requestData);
+      console.log(response);
+      navigate("/");
+      toast.success("🦄 Nice bro!");
+    } catch (error) {
+      console.error(error);
+      toast.error("Please check your settings");
+    }
+    //navigate("/");
   };
 
   const handleReset = () => {
@@ -128,7 +159,6 @@ export default function HorizontalNonLinearStepper() {
                         ? "Finish"
                         : "Complete Step"}
                     </Button>
-                    <ToastContainer />
                   </div>
                 ))}
             </Box>

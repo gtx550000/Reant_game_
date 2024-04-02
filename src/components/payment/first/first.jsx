@@ -13,7 +13,7 @@ import {
   CardMedia,
 } from "@mui/material";
 import { useEffect } from "react";
-import Instance from "../../../axios_main";
+import Instance, { refreshPage } from "../../../axios_main";
 const CartForm = () => {
   // Sample data for cart
   const [cartItems, setCartItems] = useState([
@@ -40,7 +40,7 @@ const CartForm = () => {
   const fetchGameDataById = async (gameId) => {
     try {
       const response = await Instance.get(`/games/${gameId}`); // Adjust the endpoint as per your server API
-      const game = response.data["game"];
+      const game = response.data;
       game.image = game.image.split(" ")[0];
       return game;
     } catch (error) {
@@ -48,9 +48,10 @@ const CartForm = () => {
       throw error;
     }
   };
-  const { choice, gameIds, username } = useData(DataProvider);
+  const { choice, gameIds, username, setBank } = useData(DataProvider);
   const [subtotal, setSubtotal] = useState(0);
   useEffect(() => {
+    refreshPage();
     const FetchData = async () => {
       try {
         if (choice === "cart") {
@@ -60,14 +61,15 @@ const CartForm = () => {
             fetchGameDataById(gameId)
           );
           const allGames = await Promise.all(allGamesPromises);
-          setSubtotal(cartItems.reduce((acc, item) => acc + item.price, 0));
+
+          setSubtotal(allGames.reduce((acc, item) => acc + item.price, 0));
           setCartItems(allGames);
         } else if (choice === "game") {
           console.log(gameIds);
           const game = await fetchGameDataById(gameIds);
           console.log("game", game);
           setSubtotal(game.price);
-          setCartItems([game]); // Wrap the game data in an array to ensure it's iterable
+          setCartItems(game); // Wrap the game data in an array to ensure it's iterable
         }
       } catch (error) {
         console.log(error);
@@ -76,11 +78,12 @@ const CartForm = () => {
     FetchData();
   }, []);
   // State to keep track of selected bank
-  const [selectedBank, setSelectedBank] = useState("");
+  const [selectedBank, setSelectedBank] = useState("Bangkok bank");
 
   // Function to handle bank selection
   const handleBankChange = (event) => {
     setSelectedBank(event.target.value);
+    setBank(event.target.value);
   };
 
   // Calculate subtotal
@@ -101,7 +104,7 @@ const CartForm = () => {
           <Typography variant="subtitle1" gutterBottom>
             Username: {username}
           </Typography>
-          <Typography variant="subtitle1">Subtotal: ${subtotal}</Typography>
+          <Typography variant="subtitle1">Subtotal: {subtotal} BATH</Typography>
           <div style={{ maxHeight: 200, overflowY: "auto" }}>
             {choice == "cart" ? (
               cartItems.map((item) => (
@@ -125,7 +128,7 @@ const CartForm = () => {
                       <Typography>{item.name}</Typography>
                     </Grid>
                     <Grid item xs={4}>
-                      <Typography>${item.price}</Typography>
+                      <Typography>{item.price} BATH</Typography>
                     </Grid>
                   </Grid>
                 </Card>
@@ -151,7 +154,7 @@ const CartForm = () => {
                     <Typography>{cartItems.name}</Typography>
                   </Grid>
                   <Grid item xs={4}>
-                    <Typography>${cartItems.price}</Typography>
+                    <Typography>{cartItems.price} BATH</Typography>
                   </Grid>
                 </Grid>
               </Card>
@@ -183,7 +186,7 @@ const CartForm = () => {
             {bankOptions.map((bank) => (
               <MenuItem key={bank.name} value={bank.name}>
                 <Typography gutterBottom variant="h5" component="div">
-                  <i className={bank.img}></i>
+                  <i className={bank.img} style={{ marginRight: "5rem" }}></i>
                   {bank.name}
                 </Typography>
               </MenuItem>

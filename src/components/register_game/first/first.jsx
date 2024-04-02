@@ -12,32 +12,35 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import Button from "@mui/material/Button";
 import "../../text/a-box.css";
-import { useDataReg } from "../../contextprovider/register_provider";
+import {
+  useDataReg,
+  DataRegContext,
+} from "../../contextprovider/register_provider";
 
 export default function FormPropsTextFields() {
   const {
     namegame,
     videourl,
-    categorys,
+    category,
     price,
     releaseDate,
     imageurl,
     description,
     setNamegame,
     setVideourl,
-    setCategorys,
+    setCategory,
     setPrice,
     setreleaseDate,
     setImageurl,
     setDescription,
-  } = useDataReg();
+  } = useDataReg(DataRegContext);
 
-  const [category, setCategory] = useState(categorys || ""); // Initialize category state with categorys value from context
   const [imageLinks, setImageLinks] = useState(imageurl || []); // Initialize imageLinks state with imageurl value from context
 
   const handleChange = (event) => {
     setCategory(event.target.value);
-    setCategorys(event.target.value); // Update context value
+    console.log(event.target.value);
+    // Update context value
   };
 
   const handleImageLinkUpload = (event) => {
@@ -92,13 +95,13 @@ export default function FormPropsTextFields() {
               label="Category"
               onChange={handleChange}
             >
-              <MenuItem value={10}>Action</MenuItem>
-              <MenuItem value={20}>Horror</MenuItem>
-              <MenuItem value={30}>RPG</MenuItem>
-              <MenuItem value={40}>RACING</MenuItem>
-              <MenuItem value={50}>Cooking</MenuItem>
-              <MenuItem value={60}>Story</MenuItem>
-              <MenuItem value={70}>Adventure</MenuItem>
+              <MenuItem value={"Action"}>Action</MenuItem>
+              <MenuItem value={"Horror"}>Horror</MenuItem>
+              <MenuItem value={"Rpg"}>Rpg</MenuItem>
+              <MenuItem value={"Racing"}>Racing</MenuItem>
+              <MenuItem value={"Cooking"}>Cooking</MenuItem>
+              <MenuItem value={"Story"}>Story</MenuItem>
+              <MenuItem value={"Adventure"}>Adventure</MenuItem>
             </Select>
           </FormControl>
         </Grid>

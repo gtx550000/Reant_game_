@@ -7,7 +7,7 @@ import data from "../jsonfile/admin.json";
 import data1 from "../jsonfile/user.json";
 import data2 from "../jsonfile/report.json";
 import PropTypes from "prop-types";
-import Instance from "../../axios_main";
+import Instance, { refreshPage } from "../../axios_main";
 import "../text/a-box.css";
 const datas = data["games_data_adjusted"];
 const datac = data1["user_data"];
@@ -36,6 +36,7 @@ export default function Admin() {
   const [report, setReport] = useState([]);
   const [game, setGame] = useState([]);
   const [unpublishgame, setUnpublishgame] = useState([]);
+  const [refreshKey, setRefreshKey] = useState(0);
   const displayedItem = datas.slice(startIndex, endIndex);
 
   const handlePrevPage = () => {
@@ -105,6 +106,7 @@ export default function Admin() {
       await Instance.patch("/games/confirm", requestData);
       const unpublishs = await Instance.get("/games/s");
       setUnpublishgame(unpublishs.data);
+      setRefreshKey((prevKey) => prevKey + 1);
     } catch (error) {
       console.error(error);
     }
@@ -115,6 +117,7 @@ export default function Admin() {
       await Instance.delete("/games/", { data: requestData });
       const unpublishs = await Instance.get("/games/s");
       setUnpublishgame(unpublishs.data);
+      setRefreshKey((prevKey) => prevKey + 1);
     } catch (error) {
       console.error(error);
     }
@@ -125,20 +128,21 @@ export default function Admin() {
       const res = await Instance.delete("/games/", { data: requestData });
       console.log(res.data);
       const responseGame = await Instance.get("/games/");
-
+      setRefreshKey((prevKey) => prevKey + 1);
       setGame(responseGame.data);
     } catch (error) {
       console.error(error);
     }
   };
   useEffect(() => {
+    refreshPage();
     const fetchData = async () => {
       try {
         const responseReport = await Instance.get("/user/report");
         const responseData = await Instance.get("/user/allUser");
         const responseGame = await Instance.get("/games/");
         const unpublishs = await Instance.get("/games/s");
-        console.log(responseGame.data);
+        console.log(responseReport.data);
         setGame(responseGame.data);
         setUnpublishgame(unpublishs.data);
         setReport(responseReport.data);
@@ -149,14 +153,14 @@ export default function Admin() {
       }
     };
     fetchData();
-  }, [startIndexs, endIndexs]);
+  }, [startIndexs, endIndex, refreshKey]);
 
   const deleteReport = async (id) => {
     try {
-      const response = await Instance.patch("/user/update", {
+      await Instance.patch("/user/update", {
         reportId: parseInt(id),
       });
-      console.log(response);
+      setRefreshKey((prevKey) => prevKey + 1);
     } catch (error) {
       console.error(error);
     }

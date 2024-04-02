@@ -1,7 +1,7 @@
-import { useState } from 'react';
-import PropTypes from 'prop-types';
-import '../slide_show/slide.css';
-import { Typography } from '@mui/material';
+import { useState } from "react";
+import PropTypes from "prop-types";
+import "../slide_show/slide.css";
+import { Typography } from "@mui/material";
 const Slide = ({ slides }) => {
   const [current, setCurrent] = useState(0);
   const length = slides.length;
@@ -28,7 +28,7 @@ const Slide = ({ slides }) => {
       </button>
       {slides.map((slide, index) => (
         <div
-          className={index === current ? 'slide active' : 'slide'}
+          className={index === current ? "slide active" : "slide"}
           key={index}
         >
           {index === current && (
@@ -38,7 +38,7 @@ const Slide = ({ slides }) => {
             >
               <div className="container-content">
                 <Typography variant="h3" component="h2" color="white">
-                  {slide.title}
+                  {slide.name}
                 </Typography>
                 <br />
                 <Typography
@@ -46,7 +46,7 @@ const Slide = ({ slides }) => {
                   component="h10"
                   align="left"
                   color="whitesmoke"
-                  paddingRight={'10%'}
+                  paddingRight={"10%"}
                 >
                   {slide.description}
                 </Typography>

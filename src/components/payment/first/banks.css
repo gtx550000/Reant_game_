@@ -2,22 +2,23 @@
 /** Author: @AOM **/
 /** Github: https://github.com/AomDEV/css-finances **/
 /****************************************************/
-
 i.bank {
   display: inline-block;
   border-radius: 20%;
   background-color: grey;
   vertical-align: middle;
-  width: 14px;
-  height: 14px;
-  padding: 0.1em;
+  width: 32px;
+  height: 32px;
+  padding: 0.1rem;
   background-repeat: no-repeat;
   background-size: 85%;
   background-position: center;
   background-origin: content-box;
   overflow: hidden;
   vertical-align: 0.5px;
+  font-size: 36px; /* Adjust the font size as needed */
 }
+
 i.bank.round {
   border-radius: 50%;
 }

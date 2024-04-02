@@ -1,0 +1,58 @@
+{
+  "game": [
+    {
+      "id": 1,
+      "name": "The Witcher 3: Wild Hunt",
+      "release": "2015-05-19T00:00:00.000Z",
+      "price": 29.99,
+      "video": "https://www.youtube.com/watch?v=c0i88t0Kacs",
+      "description": "The Witcher 3: Wild Hunt is a story-driven, open-world action RPG set in a visually stunning fantasy universe.",
+      "sales": 1000000,
+      "category": "RPG",
+      "User": null,
+      "userId": null,
+      "image": "https://example.com/witcher3.jpg",
+      "publish": true,
+      "Order": [],
+      "Cart": [],
+      "Favorite": [],
+      "code": "sfsfsfafafafaaf"
+    },
+    {
+      "id": 2,
+      "name": "Grand Theft Auto V",
+      "release": "2013-09-17T00:00:00.000Z",
+      "price": 39.99,
+      "video": "https://www.youtube.com/watch?v=N-xHcvug3WI",
+      "description": "Grand Theft Auto V is an action-adventure game played from either a third-person or first-person perspective.",
+      "sales": 1500000,
+      "category": "Action",
+      "User": null,
+      "userId": null,
+      "image": "https://example.com/gtav.jpg",
+      "publish": true,
+      "Order": [],
+      "Cart": [],
+      "Favorite": [],
+      "code": "5654fsafsacv465sa4s4f6as4"
+    },
+    {
+      "id": 3,
+      "name": "Minecraft",
+      "release": "2011-11-18T00:00:00.000Z",
+      "price": 19.99,
+      "video": "https://www.youtube.com/watch?v=MmB9b5njVbA",
+      "description": "Minecraft is a sandbox video game developed and published by Mojang Studios.",
+      "sales": 2000000,
+      "category": "Action",
+      "User": null,
+      "userId": null,
+      "image": "https://example.com/minecraft.jpg",
+      "publish": true,
+      "Order": [],
+      "Cart": [],
+      "Favorite": [],
+      "code": "21s6498as4f56da4964f984a94f"
+    }
+  ]
+}
