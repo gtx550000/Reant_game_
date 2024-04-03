@@ -2,7 +2,7 @@ import { useState } from "react";
 import Bgvideo from "../media/VN.mp4";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../login/logins.css";
-import Instance from "../../axios_main";
+import Instance, { setAuthToken } from "../../axios_main";
 import { useNavigate } from "react-router";
 
 /*14/3/24 */
@@ -44,9 +44,17 @@ function Login() {
 
       if (response.data.token) {
         const token = response.data.token;
-        localStorage.setItem("token", token);
+
+        setAuthToken(token);
         setUserId(response.data.id);
-        navigate("/home");
+        const response2 = await Instance.get("/user");
+        const role = response2.data.role;
+        setUsername(response2.data.username);
+        if (role == "ADMIN") {
+          navigate("/admain");
+        } else if (role == "USER") {
+          navigate("/home");
+        }
       }
     } catch (error) {
       // Handle errors
@@ -62,12 +70,14 @@ function Login() {
     try {
       const response = await Instance.post("/auth/", formreg);
       // Handle success, maybe redirect to login or dashboard
+      toast.success("successfully registered");
     } catch (error) {
       // Handle errors
       console.error(
         "Error registering user",
         error.response?.data || error.message
       );
+      toast.error("Invalid data please try again");
     }
   };
 
@@ -145,14 +155,11 @@ function Login() {
                 value={formlog.password}
                 onChange={handleInputChanges}
               />
-              <a href="/forgot_password">Forget Your Password?</a>
+
               <button type="submit" onClick={notify}>
                 Sign In
               </button>
               <ToastContainer />
-              <div>
-                <button>Google</button>
-              </div>
             </form>
           </div>
 

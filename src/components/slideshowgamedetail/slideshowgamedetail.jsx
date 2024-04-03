@@ -40,7 +40,7 @@ const Slideshow = (props) => {
             className="slide1"
             key={idx}
             style={{
-              backgroundImage: `url(${it.image})`,
+              backgroundImage: `url(${it})`,
               backgroundSize: "900px auto ",
             }}
           ></div>

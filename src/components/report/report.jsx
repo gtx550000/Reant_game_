@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import TextField from "@mui/material/TextField";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
@@ -15,7 +15,8 @@ import Button from "@mui/material/Button";
 import "../text/a-box.css";
 import "../report/report.css";
 import { toast } from "react-toastify";
-import Instance from "../../axios_main";
+import Instance, { refreshPage } from "../../axios_main";
+import { useNavigate } from "react-router";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -53,16 +54,23 @@ function getStyles(name, personName, theme) {
 }
 
 export default function BasicTextFields() {
-  const [age, setAge] = React.useState("System error");
+  const navigate = useNavigate();
 
+  useEffect(() => {
+    if (!localStorage.getItem("token")) {
+      navigate("/login");
+    }
+  }, []);
+
+  const [age, setAge] = useState("System error");
   const handleChange = (event) => {
     setAge(event.target.value);
     console.log(event.target.value);
   }; /** */
 
   const theme = useTheme();
-  const [personName, setPersonName] = React.useState([]); // Details
-  const [comment, setComment] = React.useState();
+  const [personName, setPersonName] = useState([]); // Details
+  const [comment, setComment] = useState();
   const handleChange1 = (event) => {
     const {
       target: { value },
@@ -74,20 +82,22 @@ export default function BasicTextFields() {
   };
   const handleChangeComment = (event) => {
     setComment(event.target.value);
-    console.log(event.target.value);
   };
 
   const setTimeout = async () => {
     try {
+      refreshPage();
       const requestData = {
         problemType: age,
         details: personName.join(","),
         comment: comment,
       };
 
-      const response = Instance.post("/user/report", requestData);
-      console.log(response);
+      await Instance.post("/user/report", requestData);
+      navigate("/");
+      toast.success("Thank U for your support");
     } catch (error) {
+      toast.error("Please fill all the details");
       console.error(error);
     }
   };

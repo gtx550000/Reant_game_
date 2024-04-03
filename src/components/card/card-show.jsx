@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import { useNavigate } from "react-router";
 import Instance from "../../axios_main";
 function Card_show(props) {
-  const itemsPerPage = 4;
+  const itemsPerPage = 6;
   const [currentPage, setCurrentPage] = useState(1);
   const [favourite, setFavourite] = useState(
     Array(props.items.length).fill(false)
@@ -49,8 +49,9 @@ function Card_show(props) {
         console.error("Error fetching games:", error);
       }
     };
-
-    fetchData();
+    if (localStorage.getItem("token")) {
+      fetchData();
+    }
   }, [props.items]);
 
   const addFavourite = async (id, i) => {
@@ -60,7 +61,9 @@ function Card_show(props) {
         if (!favourite[i]) {
           await Instance.post("/favorite", { gameId: Number(id) });
         } else {
-          await Instance.delete("/favorite", { data: { gameId: Number(id) } });
+          await Instance.delete("/favorite", {
+            data: { gameId: Number(id) },
+          });
         }
         console.log(favourite);
         // Update the favourite state based on the action performed
@@ -92,7 +95,7 @@ function Card_show(props) {
 
               <div className="card-body">
                 <div className="forn-cen">{item.name}</div>
-                <p className="card-text">{item.description}</p>
+                <p className="card-text">{item.description.slice(0, 150)}</p>
                 <div className="d-flex justify-content-between align-items-center">
                   <div className="btn-group">
                     <button
@@ -114,7 +117,6 @@ function Card_show(props) {
                       </div>
                     </button>
                   </div>
-                  <small className="text-body-secondary">2019</small>
                 </div>
               </div>
             </div>

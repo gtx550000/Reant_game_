@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import "../gamedetail/gamedetail.css";
 import Slide_show from "../slideshowgamedetail/slideshowgamedetail";
 import data from "../jsonfile/game_homepage.json";
-import Instance from "../../axios_main";
+import Instance, { refreshPage } from "../../axios_main";
 import { useParams, useNavigate } from "react-router-dom";
 import { useData, DataProvider } from "../contextprovider/provider";
 const game_homepage = data["Game_homepage"];
@@ -18,30 +18,38 @@ function Gamedetail() {
   const { id } = useParams();
   useEffect(() => {
     const fetchData = async () => {
+      if (!localStorage.getItem("token")) {
+        navigate("/login");
+      }
+      refreshPage();
       try {
         const response = await Instance.get(`/games/${id}`);
-        const data = response.data["game"];
+        const data = response.data;
+        console.log(data);
         setGames(data);
         setImages(data.image.split(" "));
-
-        const response_checkcart = await Instance.get("/cart/", {
-          gameId: Number(id),
-        });
+      } catch (err) {
+        console.log(err);
+      }
+      try {
+        const response_checkcart = await Instance.get("/cart/");
         const datas = response_checkcart.data;
         const isGameInCart = datas.some((item) => item.gameId === parseInt(id)); // Check if the game is in cart
         setCart(isGameInCart);
       } catch (err) {
-        console.log(err);
-        navigate("/login");
+        console.error(err);
       }
       try {
         const response = await Instance.post("/bill/all");
+        console.log(response.data);
         const isActive = response.data.some(
           (item) => item.gameId === parseInt(id)
         );
+
         const keys = response.data.map((item) =>
           item.gameId === parseInt(id) ? item.key : null
         );
+
         setKey(keys);
         setAvaliable(isActive);
       } catch (error) {
@@ -104,12 +112,13 @@ function Gamedetail() {
             <div className="col-md-6">
               <h1 className="display-5 fw-bolder">{games.name}</h1>
               <div className="fs-5 mb-5">
-                <span className="text-decoration">{games.price}</span>
+                <span className="text-decoration">{games.price} BATH</span>
               </div>
               <p className="lead">{games.description}</p>
               {avaliable && (
                 <div className="d-flex">
-                  <h4>{key}</h4>
+                  <h4>key: </h4>
+                  <h4 style={{ marginLeft: "10px" }}>{key}</h4>
                 </div>
               )}
               {!avaliable && (

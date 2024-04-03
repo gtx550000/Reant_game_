@@ -11,13 +11,16 @@ import Third from "../third/third";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import Instance, { refreshPage } from "../../../axios_main";
+import { useData, DataContext } from "../../contextprovider/provider";
+import { useNavigate } from "react-router";
 const steps = ["Select Bank settings", "Qr code Payment", "Arrangement"];
 
 export default function HorizontalNonLinearStepper() {
   const [activeStep, setActiveStep] = React.useState(0);
   const [completed, setCompleted] = React.useState({});
-
+  const { choice, setChoice, gameIds, setOrder } = useData(DataContext);
+  const navigate = useNavigate();
   const totalSteps = () => {
     return steps.length;
   };
@@ -53,14 +56,26 @@ export default function HorizontalNonLinearStepper() {
     setActiveStep(step);
   };
 
-  const handleComplete = () => {
-    const newCompleted = completed;
-    newCompleted[activeStep] = true;
-    setCompleted(newCompleted);
-    handleNext();
-    toast.success("🦄 Nice bro!");
-  };
+  const handleComplete = async () => {
+    refreshPage();
+    let response;
+    try {
+      if (choice === "cart") {
+        response = await Instance.post("/bill/cart");
+      } else if (choice === "game") {
+        const request = { gameId: gameIds };
+        response = await Instance.post("/bill/", request);
+        setChoice("");
+      }
 
+      setOrder(response.data);
+      toast.success("🦄 Enjoy your playing");
+      navigate("/bill");
+    } catch (error) {
+      toast.error("payment method invalid");
+      console.log(error);
+    }
+  };
   const handleReset = () => {
     setActiveStep(0);
     setCompleted({});

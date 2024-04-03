@@ -16,14 +16,21 @@ function Categories() {
   const { category } = useParams();
   const [categories_name] = useState(category);
   const [games, setGames] = useState(itemss);
+  const [game2, setGame2] = useState(itemss);
   const [allgames, setAllgames] = useState(item);
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await Instance.get(`games/category/${category}`);
         console.log(response.data);
-        setAllgames(response.data["game"]);
-        setGames(response.data["game"].slice(0));
+        setAllgames(response.data);
+        setGames(response.data.slice(0));
+        const newData = response.data.map((item) => {
+          const image = item.image.split(" ");
+          return { ...item, image: image[0] };
+        });
+        console.log(newData);
+        setGame2(newData);
       } catch (err) {
         console.log(err);
       }
@@ -39,10 +46,10 @@ function Categories() {
           </h2>
         </div>
         <div className="container-cardshows2">
-          <Slide slides={games} />
+          <Slide slides={game2} />
         </div>
         <div className="container-cardshows">
-          <SlideShow slides={games} />
+          <SlideShow slides={game2} />
         </div>
         <br />
         <br />

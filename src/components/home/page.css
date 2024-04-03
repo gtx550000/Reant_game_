@@ -20,6 +20,15 @@
   margin-top: 0;
   margin-left: 25%;
 }
+
+/*2/4/24*/
+.bigimage-container1 {
+  background-color: #e4e5e6;
+}
+.bigimage-container2 {
+  background-color: #7c93a9;
+}
+
 /*31/1/24*/
 body {
   background: #f5f5f5;
@@ -257,4 +266,9 @@ html:not(.dark-style) .account-settings-links .list-group-item.active {
 /*25/2/64*/
 .font-coloer-home {
   color: #26b4ff;
+}
+
+/*2/4/24*/
+.font-coloer-home1 {
+  color: #f0f3f6;
 }

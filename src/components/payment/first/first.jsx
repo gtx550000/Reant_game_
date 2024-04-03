@@ -13,7 +13,7 @@ import {
   CardMedia,
 } from "@mui/material";
 import { useEffect } from "react";
-import Instance from "../../../axios_main";
+import Instance, { refreshPage } from "../../../axios_main";
 const CartForm = () => {
   // Sample data for cart
   const [cartItems, setCartItems] = useState([
@@ -40,7 +40,7 @@ const CartForm = () => {
   const fetchGameDataById = async (gameId) => {
     try {
       const response = await Instance.get(`/games/${gameId}`); // Adjust the endpoint as per your server API
-      const game = response.data["game"];
+      const game = response.data;
       game.image = game.image.split(" ")[0];
       return game;
     } catch (error) {
@@ -48,9 +48,10 @@ const CartForm = () => {
       throw error;
     }
   };
-  const { choice, gameIds, username } = useData(DataProvider);
+  const { choice, gameIds, username, setBank } = useData(DataProvider);
   const [subtotal, setSubtotal] = useState(0);
   useEffect(() => {
+    refreshPage();
     const FetchData = async () => {
       try {
         if (choice === "cart") {
@@ -60,14 +61,15 @@ const CartForm = () => {
             fetchGameDataById(gameId)
           );
           const allGames = await Promise.all(allGamesPromises);
-          setSubtotal(cartItems.reduce((acc, item) => acc + item.price, 0));
+
+          setSubtotal(allGames.reduce((acc, item) => acc + item.price, 0));
           setCartItems(allGames);
         } else if (choice === "game") {
           console.log(gameIds);
           const game = await fetchGameDataById(gameIds);
           console.log("game", game);
           setSubtotal(game.price);
-          setCartItems([game]); // Wrap the game data in an array to ensure it's iterable
+          setCartItems(game); // Wrap the game data in an array to ensure it's iterable
         }
       } catch (error) {
         console.log(error);
@@ -76,36 +78,70 @@ const CartForm = () => {
     FetchData();
   }, []);
   // State to keep track of selected bank
-  const [selectedBank, setSelectedBank] = useState("");
+  const [selectedBank, setSelectedBank] = useState("Bangkok bank");
 
   // Function to handle bank selection
   const handleBankChange = (event) => {
     setSelectedBank(event.target.value);
+    setBank(event.target.value);
   };
 
   // Calculate subtotal
 
   return (
-    <Grid container spacing={3} direction="row">
-      {/* Left Part: Cart Details */}
-      <Grid item xs={12} sm={6}>
-        <Paper sx={{ padding: "5%" }}>
-          <div
-            className="a-box"
-            style={{ margin: "-15px", marginBottom: "1rem" }}
-          >
-            <h2>
-              <a>Cart Detail</a>
-            </h2>
-          </div>
-          <Typography variant="subtitle1" gutterBottom>
-            Username: {username}
-          </Typography>
-          <Typography variant="subtitle1">Subtotal: ${subtotal}</Typography>
-          <div style={{ maxHeight: 200, overflowY: "auto" }}>
-            {choice == "cart" ? (
-              cartItems.map((item) => (
-                <Card key={item.id} style={{ marginBottom: 10 }}>
+    <div
+      style={{
+        padding: "25px 0px 0px 10px",
+      }}
+    >
+      <Grid container spacing={3} direction="row">
+        {/* Left Part: Cart Details */}
+        <Grid item xs={12} sm={6}>
+          <Paper sx={{ padding: "5%" }}>
+            <div
+              className="a-box"
+              style={{ margin: "15px", marginBottom: "1rem" }}
+            >
+              <h2>
+                <a>Cart Detail</a>
+              </h2>
+            </div>
+            <Typography variant="subtitle1" gutterBottom>
+              Username: {username}
+            </Typography>
+            <Typography variant="subtitle1">
+              Subtotal: {subtotal} BATH
+            </Typography>
+            <div style={{ maxHeight: 200, overflowY: "auto" }}>
+              {choice == "cart" ? (
+                cartItems.map((item) => (
+                  <Card key={item.id} style={{ marginBottom: 10 }}>
+                    <Grid
+                      container
+                      rowSpacing={1}
+                      columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+                      sx={{ padding: "5%" }}
+                    >
+                      <Grid item xs={4}>
+                        <CardMedia
+                          component="img"
+                          height="100"
+                          image={item.image}
+                          alt={item.name}
+                        />
+                      </Grid>
+
+                      <Grid item xs={4}>
+                        <Typography>{item.name}</Typography>
+                      </Grid>
+                      <Grid item xs={4}>
+                        <Typography>{item.price} BATH</Typography>
+                      </Grid>
+                    </Grid>
+                  </Card>
+                ))
+              ) : (
+                <Card key={cartItems.id} style={{ marginBottom: 10 }}>
                   <Grid
                     container
                     rowSpacing={1}
@@ -116,82 +152,57 @@ const CartForm = () => {
                       <CardMedia
                         component="img"
                         height="100"
-                        image={item.image}
-                        alt={item.name}
+                        image={cartItems.image}
+                        alt={cartItems.name}
                       />
                     </Grid>
 
                     <Grid item xs={4}>
-                      <Typography>{item.name}</Typography>
+                      <Typography>{cartItems.name}</Typography>
                     </Grid>
                     <Grid item xs={4}>
-                      <Typography>${item.price}</Typography>
+                      <Typography>{cartItems.price} BATH</Typography>
                     </Grid>
                   </Grid>
                 </Card>
-              ))
-            ) : (
-              <Card key={cartItems.id} style={{ marginBottom: 10 }}>
-                <Grid
-                  container
-                  rowSpacing={1}
-                  columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-                  sx={{ padding: "5%" }}
-                >
-                  <Grid item xs={4}>
-                    <CardMedia
-                      component="img"
-                      height="100"
-                      image={cartItems.image}
-                      alt={cartItems.name}
-                    />
-                  </Grid>
+              )}
+            </div>
+            <hr />
+          </Paper>
+        </Grid>
 
-                  <Grid item xs={4}>
-                    <Typography>{cartItems.name}</Typography>
-                  </Grid>
-                  <Grid item xs={4}>
-                    <Typography>${cartItems.price}</Typography>
-                  </Grid>
-                </Grid>
-              </Card>
-            )}
-          </div>
-          <hr />
-        </Paper>
+        {/* Right Part: Bank Selection */}
+        <Grid item xs={12} sm={6}>
+          <Paper sx={{ padding: "5%" }}>
+            <div
+              className="a-box"
+              style={{ margin: "-15px", marginBottom: "1rem" }}
+            >
+              <h2>
+                <a>Select method</a>
+              </h2>
+            </div>
+            <Typography variant="subtitle1" gutterBottom>
+              Payment: QRCode & Bank Transfer
+            </Typography>
+            <Typography variant="subtitle1" gutterBottom>
+              Bank: {selectedBank}
+            </Typography>
+            <Select value={selectedBank} onChange={handleBankChange} fullWidth>
+              <MenuItem value="">Select Bank</MenuItem>
+              {bankOptions.map((bank) => (
+                <MenuItem key={bank.name} value={bank.name}>
+                  <Typography gutterBottom variant="h5" component="div">
+                    <i className={bank.img} style={{ marginRight: "5rem" }}></i>
+                    {bank.name}
+                  </Typography>
+                </MenuItem>
+              ))}
+            </Select>
+          </Paper>
+        </Grid>
       </Grid>
-
-      {/* Right Part: Bank Selection */}
-      <Grid item xs={12} sm={6}>
-        <Paper sx={{ padding: "5%" }}>
-          <div
-            className="a-box"
-            style={{ margin: "-15px", marginBottom: "1rem" }}
-          >
-            <h2>
-              <a>Select method</a>
-            </h2>
-          </div>
-          <Typography variant="subtitle1" gutterBottom>
-            Payment: QRCode & Bank Transfer
-          </Typography>
-          <Typography variant="subtitle1" gutterBottom>
-            Bank: {selectedBank}
-          </Typography>
-          <Select value={selectedBank} onChange={handleBankChange} fullWidth>
-            <MenuItem value="">Select Bank</MenuItem>
-            {bankOptions.map((bank) => (
-              <MenuItem key={bank.name} value={bank.name}>
-                <Typography gutterBottom variant="h5" component="div">
-                  <i className={bank.img}></i>
-                  {bank.name}
-                </Typography>
-              </MenuItem>
-            ))}
-          </Select>
-        </Paper>
-      </Grid>
-    </Grid>
+    </div>
   );
 };
 
