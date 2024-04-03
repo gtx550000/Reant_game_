@@ -8,22 +8,17 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
-import DeleteIcon from "@mui/icons-material/Delete";
+
 import HomeIcon from "@mui/icons-material/Home";
 import LogoutIcon from "@mui/icons-material/Logout";
 import Profile from "@mui/icons-material/AccountCircle";
 import CollectionsBookmarkIcon from "@mui/icons-material/CollectionsBookmark";
 /*1/3/24 */
-import AlignHorizontalLeftIcon from "@mui/icons-material/AlignHorizontalLeft";
+
 /*2/3/24 */
 import Collapse from "@mui/material/Collapse";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
-/*13/3/24 */
-import PaymentIcon from "@mui/icons-material/Payment";
-/*1/4/24*/
-import LocationSearchingIcon from "@mui/icons-material/LocationSearching";
+
 import SportsKabaddiIcon from "@mui/icons-material/SportsKabaddi";
 import SentimentDissatisfiedIcon from "@mui/icons-material/SentimentDissatisfied";
 import GroupAddIcon from "@mui/icons-material/GroupAdd";
@@ -32,6 +27,10 @@ import SoupKitchenIcon from "@mui/icons-material/SoupKitchen";
 import BookIcon from "@mui/icons-material/Book";
 import SportsMartialArtsIcon from "@mui/icons-material/SportsMartialArts";
 import Typography from "@mui/material/Typography";
+import ReportIcon from "@mui/icons-material/Report";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import GamepadIcon from "@mui/icons-material/Gamepad";
+import { removeAuthToken } from "../../axios_main";
 
 export default function TemporaryDrawer({ state, setState, toggleDrawer }) {
   const [isCollapse, setisCollapse] = React.useState(false);
@@ -106,11 +105,11 @@ export default function TemporaryDrawer({ state, setState, toggleDrawer }) {
       </List>
 
       <List>
-        {["Payment"].map((text) => (
+        {["Make Game"].map((text) => (
           <ListItem key={text} disablePadding>
-            <ListItemButton href={`/${text.toLowerCase()}`}>
+            <ListItemButton href={`/register`}>
               <ListItemIcon>
-                <PaymentIcon sx={{ color: "#fff" }} />
+                <AddCircleOutlineIcon sx={{ color: "#fff" }} />
               </ListItemIcon>
               <ListItemText primary={text} />
             </ListItemButton>
@@ -119,9 +118,21 @@ export default function TemporaryDrawer({ state, setState, toggleDrawer }) {
       </List>
 
       <List>
-        {["Logout"].map((text) => (
+        {["Report"].map((text) => (
           <ListItem key={text} disablePadding>
             <ListItemButton href={`/${text.toLowerCase()}`}>
+              <ListItemIcon>
+                <ReportIcon sx={{ color: "#fff" }} />
+              </ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItemButton>
+          </ListItem>
+        ))}
+      </List>
+      <List>
+        {["Logout"].map((text) => (
+          <ListItem key={text} disablePadding onClick={() => removeAuthToken()}>
+            <ListItemButton href={`/login`}>
               <ListItemIcon>
                 <LogoutIcon sx={{ color: "#fff" }} />
               </ListItemIcon>
@@ -151,7 +162,7 @@ export default function TemporaryDrawer({ state, setState, toggleDrawer }) {
                 justifyContent: "center",
               }}
             >
-              <MailIcon sx={{ color: "#9FA9B2 " }} />
+              <GamepadIcon sx={{ color: "#9FA9B2 " }} />
               <Typography
                 variant="h8"
                 gutterBottom
@@ -168,7 +179,7 @@ export default function TemporaryDrawer({ state, setState, toggleDrawer }) {
           <List>
             {["Action"].map((text) => (
               <ListItem key={text} disablePadding>
-                <ListItemButton href={`/categories/${text.toLowerCase()}`}>
+                <ListItemButton href={`/categories/${text}`}>
                   <ListItemIcon>
                     <SportsKabaddiIcon sx={{ color: "#fff" }} />
                   </ListItemIcon>
@@ -181,7 +192,7 @@ export default function TemporaryDrawer({ state, setState, toggleDrawer }) {
           <List>
             {["Horror"].map((text) => (
               <ListItem key={text} disablePadding>
-                <ListItemButton href={`/categories/${text.toLowerCase()}`}>
+                <ListItemButton href={`/categories/${text}`}>
                   <ListItemIcon>
                     <SentimentDissatisfiedIcon sx={{ color: "#fff" }} />
                   </ListItemIcon>
@@ -194,7 +205,7 @@ export default function TemporaryDrawer({ state, setState, toggleDrawer }) {
           <List>
             {["RPG"].map((text) => (
               <ListItem key={text} disablePadding>
-                <ListItemButton href={`/categories/${text.toLowerCase()}`}>
+                <ListItemButton href={`/categories/${text}`}>
                   <ListItemIcon>
                     <GroupAddIcon sx={{ color: "#fff" }} />
                   </ListItemIcon>
@@ -207,7 +218,7 @@ export default function TemporaryDrawer({ state, setState, toggleDrawer }) {
           <List>
             {["Racing"].map((text) => (
               <ListItem key={text} disablePadding>
-                <ListItemButton href={`/categories/${text.toLowerCase()}`}>
+                <ListItemButton href={`/categories/${text}`}>
                   <ListItemIcon>
                     <DirectionsCarFilledIcon sx={{ color: "#fff" }} />
                   </ListItemIcon>
@@ -220,7 +231,7 @@ export default function TemporaryDrawer({ state, setState, toggleDrawer }) {
           <List>
             {["Cooking"].map((text) => (
               <ListItem key={text} disablePadding>
-                <ListItemButton href={`/categories/${text.toLowerCase()}`}>
+                <ListItemButton href={`/categories/${text}`}>
                   <ListItemIcon>
                     <SoupKitchenIcon sx={{ color: "#fff" }} />
                   </ListItemIcon>
@@ -233,7 +244,7 @@ export default function TemporaryDrawer({ state, setState, toggleDrawer }) {
           <List>
             {["Story"].map((text) => (
               <ListItem key={text} disablePadding>
-                <ListItemButton href={`/categories/${text.toLowerCase()}`}>
+                <ListItemButton href={`/categories/${text}`}>
                   <ListItemIcon>
                     <BookIcon sx={{ color: "#fff" }} />
                   </ListItemIcon>
@@ -246,7 +257,7 @@ export default function TemporaryDrawer({ state, setState, toggleDrawer }) {
           <List>
             {["Adventure"].map((text) => (
               <ListItem key={text} disablePadding>
-                <ListItemButton href={`/categories/${text.toLowerCase()}`}>
+                <ListItemButton href={`/categories/${text}`}>
                   <ListItemIcon>
                     <SportsMartialArtsIcon sx={{ color: "#fff" }} />
                   </ListItemIcon>

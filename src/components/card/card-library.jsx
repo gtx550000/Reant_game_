@@ -12,6 +12,7 @@ export default function Card_library(props) {
   useEffect(() => {
     const FetchDatass = async () => {
       await setGames(props.items);
+      console.log(props.items);
     };
     FetchDatass();
   }, [props.items]);
@@ -33,7 +34,7 @@ export default function Card_library(props) {
                   e.target.style.filter = "blur(0px)";
                   e.target.nextElementSibling.style.opacity = "0";
                 }}
-                onClick={() => handleClick(games.id)}
+                onClick={() => handleClick(item.id)}
               />
               <Typography variant="subtitle2" className="cardText-libraryss ">
                 {item.name}

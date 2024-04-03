@@ -20,9 +20,11 @@ import Card_library from "../card/card-library";
 import Instance from "../../axios_main";
 
 /*1/4/24 */ import data from "../jsonfile/game_homepage.json";
+import { useNavigate } from "react-router";
 const datas = data["Game_homepage"];
 
 export default function Library() {
+  const navigate = useNavigate();
   const [select, setSelect] = useState("fav");
   const [favourite, setFavourite] = useState([]);
   const [games, setGames] = useState([]);
@@ -31,9 +33,14 @@ export default function Library() {
   const [subtotals, setSubtotals] = useState(0);
   useEffect(() => {
     const fetchData = async () => {
+      if (!localStorage.getItem("token")) {
+        navigate("/login");
+      }
+
       try {
         const favoriteResponse = await Instance.get("/favorite/");
         const favoriteIds = favoriteResponse.data.map((item) => item.gameId);
+
         const favoriteGames = await Promise.all(
           favoriteIds.map(fetchGameDataById)
         );
@@ -42,21 +49,25 @@ export default function Library() {
         setFavourite(favoriteGames);
 
         setSubtotals(totalss);
-        console.log(items);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
       try {
         const billResponse = await Instance.get("/bill");
+
         const orderIds = billResponse.data.map((item) => item.orderId);
+        console.log(orderIds);
         const orderedGames = await Promise.all(
           orderIds.map(fetchOrderDataById)
         );
+        console.log(orderedGames);
         const totals = orderedGames.reduce((ac, item) => ac + item.price, 0);
         setGames(orderedGames);
+
         const updatedItems = select === "fav" ? favourite : orderedGames;
         setSubtotal(totals);
         setItems(updatedItems);
+        console.log(items);
       } catch (error) {
         console.error(error);
       }
@@ -73,7 +84,8 @@ export default function Library() {
   const fetchGameDataById = async (gameId) => {
     try {
       const response = await Instance.get(`/games/${gameId}`);
-      const game = response.data["game"];
+
+      const game = response.data;
       game.image = game.image.split(" ")[0];
       return game;
     } catch (error) {
@@ -85,17 +97,18 @@ export default function Library() {
   const fetchOrderDataById = async (orderId) => {
     try {
       const response = await Instance.get(`/bill/order/${orderId}`);
-      const order = response.data["Game"];
-      order.image = order.image.split(" ")[0];
-      return order;
+      const order = response.data;
+
+      order["Game"].image = order["Game"].image.split(" ")[0];
+
+      return order["Game"];
     } catch (error) {
       console.error(`Error fetching game data for ID ${orderId}:`, error);
       throw error;
     }
   };
   return (
-    <Box>
-      {" "}
+    <Box sx={{ padding: "1rem" }}>
       <div className="a-box aa">
         <h2>
           <a>Library</a>
@@ -105,172 +118,150 @@ export default function Library() {
         className="container-library"
         sx={{
           display: "flex",
-          padding: "30px 0px 30px 50px",
+          flexDirection: { xs: "column", md: "row" },
+          alignItems: "center",
           justifyContent: "center",
-          "@media (max-width: 999px)": {
-            // Target screens less than 1000px
-            flexDirection: "column", // Stack cards vertically on small screens
-            alignItems: "center", // Center cards horizontally
-            padding: "20px", // Adjust padding for smaller layouts
-          },
-          "@media (min-width: 1000px)": {
-            // Add styles for larger screens (optional)
-            // ... your existing styles here
-          },
+          padding: "1rem",
         }}
       >
-        <Box className="kanit-thin" height={30}>
-          <Box>
-            <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-              <Grid container spacing={1}>
-                <Grid xs={12}>
-                  <Stack spacing={2} direction={"row"}>
-                    <Card
-                      sx={{ minWidth: 10 + "rem", height: 140 }}
-                      className="greadient1-library"
-                    >
-                      <CardContent>
-                        <div>
-                          <VideogameAssetIcon />
-                        </div>
-                        <Typography gutterBottom variant="h5" component="div">
-                          {games.length}
-                        </Typography>
-                        <Typography
-                          gutterBottom
-                          variant="body2"
-                          sx={{ color: "#ffff" }}
-                        >
-                          Total Game in the Library
-                        </Typography>
-                      </CardContent>
-                      <CardActions></CardActions>
-                    </Card>
-
-                    <Card
-                      sx={{ minWidth: 10 + "rem", height: 140 }}
-                      className="greadient2-library"
-                    >
-                      <CardContent>
-                        <div>
-                          <FavoriteIcon />
-                        </div>
-                        <Typography gutterBottom variant="h5" component="div">
-                          {favourite.length}
-                        </Typography>
-                        <Typography
-                          gutterBottom
-                          variant="body2"
-                          sx={{ color: "#ffff" }}
-                        >
-                          Wishlist in the Library
-                        </Typography>
-                      </CardContent>
-                      <CardActions></CardActions>
-                    </Card>
-
-                    <Card
-                      sx={{ minWidth: 10 + "rem", height: 140 }}
-                      className="greadient3-library"
-                    >
-                      <CardContent>
-                        <div>
-                          <CloudDownloadIcon />
-                        </div>
-                        <Typography gutterBottom variant="h5" component="div">
-                          {subtotal}
-                        </Typography>
-                        <Typography
-                          gutterBottom
-                          variant="body2"
-                          sx={{ color: "#ffff" }}
-                        >
-                          All games price
-                        </Typography>
-                      </CardContent>
-                      <CardActions></CardActions>
-                    </Card>
-
-                    <Card
-                      sx={{ minWidth: 10 + "rem", height: 140 }}
-                      className="greadient4-library"
-                    >
-                      <CardContent>
-                        <div>
-                          <HistoryIcon />
-                        </div>
-                        <Typography gutterBottom variant="h5" component="div">
-                          {subtotals}
-                        </Typography>
-                        <Typography
-                          gutterBottom
-                          variant="body2"
-                          sx={{ color: "#ffff" }}
-                        >
-                          Price all wishlist game
-                        </Typography>
-                      </CardContent>
-                      <CardActions></CardActions>
-                    </Card>
-                  </Stack>
-                </Grid>
-              </Grid>
-            </Box>
-          </Box>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            flexDirection: "column",
+            maxWidth: { xs: "100%", md: "25%" },
+            minWidth: "15rem",
+            minHeight: "140px",
+            margin: "0.5rem",
+          }}
+          className="greadient1-library"
+        >
+          <div>
+            <VideogameAssetIcon />
+          </div>
+          <Typography gutterBottom variant="h5" component="div">
+            {games.length}
+          </Typography>
+          <Typography gutterBottom variant="body2" sx={{ color: "#ffff" }}>
+            Total Game in the Library
+          </Typography>
+        </Box>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            flexDirection: "column",
+            maxWidth: { xs: "100%", md: "25%" },
+            minWidth: "15rem",
+            minHeight: "140px",
+            margin: "0.5rem",
+          }}
+          className="greadient2-library"
+        >
+          <div>
+            <FavoriteIcon />
+          </div>
+          <Typography gutterBottom variant="h5" component="div">
+            {favourite.length}
+          </Typography>
+          <Typography gutterBottom variant="body2" sx={{ color: "#ffff" }}>
+            Wishlist in the Library
+          </Typography>
+        </Box>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            flexDirection: "column",
+            maxWidth: { xs: "100%", md: "25%" },
+            minWidth: "15rem",
+            minHeight: "140px",
+            margin: "0.5rem",
+          }}
+          className="greadient3-library"
+        >
+          <div>
+            <CloudDownloadIcon />
+          </div>
+          <Typography gutterBottom variant="h5" component="div">
+            {subtotal}
+          </Typography>
+          <Typography gutterBottom variant="body2" sx={{ color: "#ffff" }}>
+            All games price
+          </Typography>
+        </Box>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            flexDirection: "column",
+            maxWidth: { xs: "100%", md: "25%" },
+            minWidth: "15rem",
+            minHeight: "140px",
+            margin: "0.5rem",
+          }}
+          className="greadient4-library"
+        >
+          <div>
+            <HistoryIcon />
+          </div>
+          <Typography gutterBottom variant="h5" component="div">
+            {subtotals}
+          </Typography>
+          <Typography gutterBottom variant="body2" sx={{ color: "#ffff" }}>
+            Price all wishlist game
+          </Typography>
         </Box>
       </Box>{" "}
-      <Box>
-        <Stack
-          direction="row"
-          spacing={-5}
-          sx={{
-            marginTop: "2rem",
-            justifyContent: "center",
+      {/* */}
+      <Stack
+        direction="row"
+        spacing={-5}
+        sx={{
+          marginTop: "2rem",
+          justifyContent: "center",
+        }}
+      >
+        <div>
+          <Button
+            color="error"
+            variant={select === "fav" ? "contained" : "outlined"}
+            onClick={() => handleChangeButton("fav")}
+          >
+            <FavoriteIcon />
+            <Typography>Favorite</Typography>
+          </Button>
+        </div>
+
+        <div
+          style={{
+            padding: "0px 0px 30px 50px",
           }}
         >
-          <div
-            style={{
-              padding: "150px 0px 30px 50px",
-            }}
+          <Button
+            color="error"
+            variant={select === "game" ? "contained" : "outlined"}
+            onClick={() => handleChangeButton("game")}
           >
-            <Button
-              color="error"
-              variant={select === "fav" ? "contained" : "outlined"}
-              onClick={() => handleChangeButton("fav")}
-            >
-              <FavoriteIcon />
-              <Typography>Favorite</Typography>
-            </Button>
-          </div>
-
-          <div
-            style={{
-              padding: "150px 0px 30px 50px",
-            }}
-          >
-            <Button
-              color="error"
-              variant={select === "game" ? "contained" : "outlined"}
-              onClick={() => handleChangeButton("game")}
-            >
-              <VideogameAssetIcon />
-              <Typography sx={{ marginLeft: "0.5rem" }}>Game</Typography>
-            </Button>
-          </div>
-        </Stack>
-      </Box>
-      <div style={{ textAlign: "center", padding: "30px 0px 0px 50px" }}>
+            <VideogameAssetIcon />
+            <Typography sx={{ marginLeft: "0.5rem" }}>Game</Typography>
+          </Button>
+        </div>
+      </Stack>
+      {/* */}
+      <div style={{ textAlign: "center", padding: "1rem" }}>
         <Box
           sx={{
             maxWidth: "800px",
             width: "100%",
             margin: "0 auto", // Center horizontally
-            "@media (min-width: 1100px)": {
-              marginLeft: "30rem",
-            },
           }}
         >
-          <Card_library items={datas} />
+          <Card_library items={items} />
         </Box>
       </div>
     </Box>

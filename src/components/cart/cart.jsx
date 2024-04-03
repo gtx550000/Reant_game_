@@ -1,16 +1,17 @@
 import { useState, useEffect } from "react";
-import Instance from "../../axios_main";
+import Instance, { refreshPage } from "../../axios_main";
 import "../cart/cart.css";
-import data from "../jsonfile/game_example.json";
+import { useNavigate } from "react-router";
+import { useData, DataContext } from "../contextprovider/provider";
 
 function ShoppingCart() {
-  let items = data["Game_example"];
-  const [products, setProducts] = useState(items);
-
+  const [products, setProducts] = useState([]);
+  const navigate = useNavigate();
   const itemCount = products.reduce(
     (count, product) => count + parseInt(product.length) || 0,
     0
   );
+  const { setChoice } = useData(DataContext);
   const subTotal = products.reduce(
     (total, product) => total + parseFloat(product.price),
     0
@@ -18,24 +19,51 @@ function ShoppingCart() {
 
   const totalPrice = subTotal;
 
-  const removeItem = (index) => {
-    const newProducts = [...products];
-    newProducts.splice(index, 1);
-    setProducts(newProducts);
+  const FetchGame = async (id) => {
+    try {
+      const response = await Instance.get(`/games/${id}`);
+      const data = response.data;
+      data.image = data.image.split(" ")[0];
+      console.log(data);
+      return data;
+    } catch (error) {
+      return id + " not valid";
+    }
   };
+
+  const removeItem = async (index, id) => {
+    try {
+      const requestBody = { gameId: id };
+      await Instance.delete(`/cart/`, { data: requestBody });
+      const newProducts = [...products];
+      newProducts.splice(index, 1);
+      setProducts(newProducts);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   useEffect(() => {
     const Fetchdata = async () => {
+      refreshPage();
       try {
         const response = await Instance.get("/cart/");
         const data = response.data;
-        console.log(data);
+        const gamePromises = data.map((order) => FetchGame(order.gameId));
+        const gamesData = await Promise.all(gamePromises);
+        setProducts(gamesData);
+        console.log(gamesData);
       } catch (error) {
+        navigate("/login");
         console.error(error);
       }
     };
     Fetchdata();
   }, []);
-
+  const handleGamedetails = () => {
+    setChoice("cart");
+    navigate("/payment");
+  };
   return (
     <div id="app">
       <div className="body-cart">
@@ -63,7 +91,7 @@ function ShoppingCart() {
                     </div>
                     <div className="detail">
                       <div className="name">
-                        <a href="#">{product.title}</a>
+                        <a>{product.name}</a>
                       </div>
 
                       <div className="price">
@@ -77,7 +105,9 @@ function ShoppingCart() {
 
                   <div className="col right">
                     <div className="remove">
-                      <button onClick={() => removeItem(index)}>Remove</button>
+                      <button onClick={() => removeItem(index, product.id)}>
+                        Remove
+                      </button>
                     </div>
                   </div>
                 </li>
@@ -86,7 +116,7 @@ function ShoppingCart() {
           ) : (
             <div className="empty-product">
               <h3>There are no products in your cart.</h3>
-              <button>Shopping now</button>
+              <button onClick={() => navigate("/")}>Shopping now</button>
             </div>
           )}
         </section>
@@ -122,7 +152,9 @@ function ShoppingCart() {
 
           {products.length > 0 && (
             <div className="checkout">
-              <button type="button">Check Out</button>
+              <button onClick={handleGamedetails} type="button">
+                Check Out
+              </button>
             </div>
           )}
         </section>

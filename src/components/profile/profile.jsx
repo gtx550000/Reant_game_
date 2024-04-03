@@ -5,7 +5,8 @@ import "react-toastify/dist/ReactToastify.css";
 import "../profile/style.css";
 
 import "bootstrap/dist/css/bootstrap.min.css";
-import Instance from "../../axios_main";
+import Instance, { refreshPage } from "../../axios_main";
+import { useNavigate } from "react-router";
 
 export default function Profile() {
   const notify = () =>
@@ -19,6 +20,7 @@ export default function Profile() {
     username: "baba",
     email: "baba",
   });
+  const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [currentpassword, setcurrentPassword] = useState("");
@@ -103,7 +105,12 @@ export default function Profile() {
   };
   useEffect(() => {
     const fetchData = async () => {
+      if (!localStorage.getItem("token")) {
+        navigate("/login");
+      }
+
       try {
+        refreshPage();
         const response = await Instance.get("/user/");
         const response_profile = await Instance.get("/user/profileUser", {
           responseType: "arraybuffer",

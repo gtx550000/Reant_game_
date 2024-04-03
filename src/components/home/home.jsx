@@ -1,6 +1,6 @@
 import "react-toastify/dist/ReactToastify.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import data from "../jsonfile/game_homepage";
+import data from "../jsonfile/game_homepage.json";
 import datas from "../jsonfile/category_page.json";
 
 import "../text/a-box.css";
@@ -10,32 +10,45 @@ import Card_show from "../card/card-show";
 import Card_category from "../card/card-category";
 import PropTypes from "prop-types";
 import { useData, DataProvider } from "../contextprovider/provider";
-import { useEffect } from "react";
-
-import Gamehome from "../slideshowhome/slideshowhome";
-
+import { useEffect, useState } from "react";
+import Instance from "../../axios_main";
+import Slide_show from "../slideshowgamedetail/slideshowgamedetail";
 let items = data["Game_homepage"];
 let category_item = datas["Category"];
 
 const Hero = () => {
   const navigate = useNavigate();
   const { userId } = useData(DataProvider);
-
+  const [item, setItem] = useState(items);
+  const [item2, setItem2] = useState(items);
   const category = (event, links) =>
     navigate(`/categories/${links}`, { replace: true, state: { links } });
   useEffect(() => {
     const Fetchdata = async () => {
-      console.log(userId);
+      const response = await Instance.get("/games");
+      console.log(response);
+      let data = response.data;
+      setItem(data);
+      console.log(response);
+      const newData = data.map((item) => {
+        const image = item.image.split(" ");
+        return image[0];
+      });
+      setItem2(newData);
     };
     Fetchdata();
   }, []);
+
   return (
     <div>
       <body>
-        <div /**/ className="bigimage-container1">
-          <Gamehome></Gamehome>
+        <div>
+          <section className="py-5">
+            <div className="">
+              <Slide_show items={item2} />
+            </div>
+          </section>
         </div>
-
         <div className="album py-5 bg-body-tertiary">
           <div className="a-box">
             <h2>
@@ -107,7 +120,7 @@ const Hero = () => {
             </h2>
           </div>
           <div className="container">
-            <Card_show items={items} />
+            <Card_show items={item} />
           </div>
         </div>
 

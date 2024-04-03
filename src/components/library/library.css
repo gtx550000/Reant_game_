@@ -68,3 +68,31 @@
     rgb(117, 121, 119) 100%
   );
 }
+.card-listss {
+  display: flex;
+  flex-wrap: nowrap; /* Prevent cards from wrapping */
+  overflow-x: auto; /* Enable horizontal scrollbar */
+  padding: 20px; /* Add padding */
+}
+@media (max-width: 768px) {
+  .card-listss {
+    overflow-x: visible;
+    overflow-x: hidden;
+  }
+  .scroll-x-mobile {
+    padding-bottom: 0%;
+    padding-left: 85%;
+  }
+}
+.scroll-x-mobile {
+  overflow-x: auto; /* Enable horizontal scrollbar */
+  overflow-y: hidden;
+}
+
+@media (min-width: 600px) {
+  .scroll-x-mobile {
+    overflow-y: hidden;
+    overflow-x: auto;
+    padding-bottom: 10%;
+  }
+}

@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from "react";
-const DataRegContext = createContext();
+export const DataRegContext = createContext();
 export const DataRegProvider = ({ children }) => {
   const [namegame, setNamegame] = useState();
   const [videourl, setVideourl] = useState();

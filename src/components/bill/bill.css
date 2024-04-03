@@ -28,6 +28,14 @@
   position: relative;
 }
 
+.container2 {
+  max-width: 800px;
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
+  margin-top: 15%;
+}
+
 #contact input[type="text"],
 #contact input[type="email"],
 #contact input[type="tel"],
